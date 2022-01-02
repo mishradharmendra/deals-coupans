@@ -1,9 +1,11 @@
 package com.cg.dealscoupan.userservice.dao;
 
+import com.cg.dealscoupan.userservice.entity.ClientType;
 import com.cg.dealscoupan.userservice.entity.UserProfile;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -14,8 +16,10 @@ public interface UserProfileRepository extends MongoRepository<UserProfile, Stri
 
     Optional<UserProfile> findByMobileNumber(long mobileNumber);
 
-    Optional<UserProfile> findByEmailAndPassword(String email, String password);
-
     UserProfile findTopByOrderByProfileIdDesc();
+
+    List<UserProfile> findAllByClientType(ClientType company);
+
+    Optional<UserProfile> findByEmail(String email);
 
 }

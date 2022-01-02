@@ -12,5 +12,5 @@ public interface CashBackRepository extends MongoRepository<CashBack, String> {
 
     List<CashBack> findAllByCustomerId(int customerId);
     List<CashBack> findAllByCouponId(int couponId);
-    Optional<CashBack> findByCouponIdAndCustomerId(int couponId, int customerId);
+    Optional<CashBack> findByCouponIdAndCustomerId(int couponId, String customerId);
 }

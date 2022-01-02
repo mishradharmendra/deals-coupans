@@ -22,6 +22,6 @@ public class CashBack {
     private String id;
 
     private int couponId;
-    private int customerId;
+    private String customerId;
     private double amount;
 }

@@ -10,22 +10,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringCloudConfig {
 
-    @Autowired
-    private JwtAuthenticationFilter filter;
-
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("auth-service", r -> r.path("/auth/**")
-                        .filters(f -> f.filter(filter))
+                .route("auth-service", r -> r.path("/api/auth/**")
                         .uri("lb://auth-service"))
-                .route("coupon-service", r -> r.path("/coupon/**")
-                        .filters(f -> f.filter(filter))
+                .route("coupon-service", r -> r.path("/api/coupon/**")
                         .uri("lb://coupon-service"))
-                .route("user-service", r -> r.path("/user/**")
+                .route("user-service", r -> r.path("/api/user/**")
                         .uri("lb://user-service"))
-                .route("cashback-service", r -> r.path("/wallet/**", "/cashback/**")
-                        .filters(f -> f.filter(filter))
+                .route("cashback-service", r -> r.path("/api/wallet/**", "/api/cashback/**")
                         .uri("lb://cashback-service"))
                 .build();
     }

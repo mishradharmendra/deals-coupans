@@ -32,6 +32,7 @@ public class UserProfile {
     private String gender;
     private String role;
     private String password;
+    private ClientType clientType;
 
     private Address address;
 }

@@ -9,6 +9,8 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
+
 @Data
 @Document(collection = "coupon")
 @NoArgsConstructor
@@ -21,10 +23,16 @@ public class Coupon {
     private String id;
 
     private int couponId;
+    private String companyId;
     private String couponType;
     private String couponName;
     private String category;
-    private int discount;
+    private String title;
     private String description;
+    private int amount;
+    private double price;
+    private String image;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
 }

@@ -20,3 +20,5 @@ springdoc:
   swagger-ui:
     path: /cashback-service-swagger.html
   operationsSorter: method
+
+jwt.secret: dealsandcouponsecret

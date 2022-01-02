@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/wallet")
+@RequestMapping("/api/wallet")
 @AllArgsConstructor
 public class WalletController {
 
@@ -56,12 +57,12 @@ public class WalletController {
 
 
     @GetMapping(value = "/customer/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Wallet> getByCustomerId(@RequestParam (value = "customerId") int customerId ) {
+    public ResponseEntity<Wallet> getByCustomerId(@PathVariable("customerId") String customerId ) {
         return ResponseEntity.ok(walletService.findByCustomerId(customerId));
     }
 
     @GetMapping(value = "/wallet/{walletId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Wallet> getById(@RequestParam (value = "walletId") int walletId ) {
+    public ResponseEntity<Wallet> getById(@PathVariable ("walletId") int walletId ) {
         return ResponseEntity.ok(walletService.findByWalletId(walletId));
     }
 

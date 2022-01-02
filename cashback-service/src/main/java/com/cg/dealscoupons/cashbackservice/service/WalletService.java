@@ -49,7 +49,7 @@ public class WalletService {
         return walletRepository.findByWalletId(walletId).orElse(Wallet.builder().build());
     }
 
-    public Wallet findByCustomerId(int customerId) {
+    public Wallet findByCustomerId(String customerId) {
         return walletRepository.findByCustomerId(customerId).orElse(Wallet.builder().build());
     }
 

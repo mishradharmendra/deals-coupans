@@ -16,4 +16,5 @@ public interface DealCouponRepository extends MongoRepository<Coupon, String> {
     List<Coupon> findAllByCouponType(String couponType);
     Coupon findTopByOrderByCouponIdDesc();
 
+    List<Coupon> findAllByCompanyId(String companyId);
 }

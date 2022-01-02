@@ -21,6 +21,7 @@ spring:
 
 server:
   port: 8081
+
 eureka:
   client:
     serviceUrl:
@@ -34,3 +35,6 @@ springdoc:
   swagger-ui:
     path: /coupon-service-swagger.html
   operationsSorter: method
+
+
+jwt.secret: dealsandcouponsecret

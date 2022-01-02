@@ -15,6 +15,6 @@ import lombok.ToString;
 @Builder
 public class CashbackRequest {
     private int couponId;
-    private int customerId;
+    private String customerId;
     private double amount;
 }

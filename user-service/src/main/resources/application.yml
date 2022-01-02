@@ -20,3 +20,14 @@ springdoc:
   swagger-ui:
     path: /user-service-swagger.html
   operationsSorter: method
+
+jwt.secret: dealsandcouponsecret
+
+logging:
+  level:
+    reactor:
+      netty: INFO
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE

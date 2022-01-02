@@ -1,14 +1,20 @@
 package com.cg.dealscoupons.couponservice.service;
 
+import com.cg.dealscoupons.couponservice.client.UserServiceClient;
+import com.cg.dealscoupons.couponservice.dao.UserCouponRepository;
 import com.cg.dealscoupons.couponservice.entity.Coupon;
 import com.cg.dealscoupons.couponservice.dao.DealCouponRepository;
+import com.cg.dealscoupons.couponservice.entity.Customer;
+import com.cg.dealscoupons.couponservice.entity.UserCoupon;
 import lombok.AllArgsConstructor;
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -16,6 +22,10 @@ import java.util.Optional;
 public class DealsCouponService {
 
     private final DealCouponRepository dealCouponRepository;
+
+    private final UserCouponRepository userCouponRepository;
+
+    private final UserServiceClient serviceClient;
 
     public void addCoupon(Coupon coupon) {
         coupon.setCouponId(getNextCouponId());
@@ -53,6 +63,15 @@ public class DealsCouponService {
     }
 
 
+    public List<Coupon> getCompanyCoupon(String companyId) {
+        return dealCouponRepository.findAllByCompanyId(companyId);
+    }
+
+    public List<Coupon> getCustomerCoupon(String customerId) {
+        List<UserCoupon> all = userCouponRepository.findAll();
+        return all.stream().filter(cc -> cc.getCustomer().getId().equals(customerId)).map(cc -> cc.getCoupon()).collect(Collectors.toList());
+    }
+
     public Optional<Coupon> getCouponById(int id) {
         return dealCouponRepository.findByCouponId(id);
     }
@@ -66,5 +85,14 @@ public class DealsCouponService {
 
     public Optional<Coupon> getCouponByName(String name) {
         return dealCouponRepository.findByCouponName(name);
+    }
+
+    public void purchaseCoupon(Coupon coupon, String customerId, String token) {
+        ResponseEntity<List<Customer>> alCustomers = serviceClient.getAlCustomers(token);
+        Optional<Customer> customer1 = alCustomers.getBody().stream().filter(customer -> customer.getId().equals(customerId)).findFirst();
+        if (customer1.isPresent()) {
+            UserCoupon userCoupon = UserCoupon.builder().coupon(coupon).customer(customer1.get()).build();
+            userCouponRepository.save(userCoupon);
+        }
     }
 }

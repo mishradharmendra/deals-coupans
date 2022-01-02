@@ -19,7 +19,7 @@ public class CashbackService {
         return cashBackRepository.findAllByCustomerId(customerId);
     }
 
-    public boolean isCouponValidForUser(int customerId, int couponId) {
+    public boolean isCouponValidForUser(String customerId, int couponId) {
         Optional<CashBack> byCouponIdAndCustomerId = cashBackRepository.findByCouponIdAndCustomerId(couponId, customerId);
         return byCouponIdAndCustomerId.isEmpty();
     }
