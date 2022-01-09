@@ -87,17 +87,19 @@ public class DealsCouponsController {
                                                @RequestBody Coupon coupon) {
         dealsCouponService.purchaseCoupon(coupon, customerId, token);
 
-        ResponseEntity<Wallet> byCustomerId = walletServiceClient.getByCustomerId(customerId);
+        ResponseEntity<Wallet> byCustomerId = walletServiceClient.getByCustomerId(token, customerId);
         Wallet body = byCustomerId.getBody();
         if (body != null) {
-            walletServiceClient.payMoney(WalletRequest.builder()
+            walletServiceClient.payMoney(token,
+                    WalletRequest.builder()
                     .walletId(body.getWalletId())
                     .amount(coupon.getPrice())
                     .transactionType("withdraw")
                     .build());
         } else {
             Wallet wallet = Wallet.builder().customerId(customerId).currentBalance(100000).build();
-            walletServiceClient.payMoney(WalletRequest.builder()
+            walletServiceClient.payMoney(token,
+                    WalletRequest.builder()
                     .walletId(wallet.getWalletId())
                     .amount(coupon.getPrice())
                             .transactionType("withdraw")
