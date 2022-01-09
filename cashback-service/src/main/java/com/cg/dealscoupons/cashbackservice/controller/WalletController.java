@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,7 +58,8 @@ public class WalletController {
 
 
     @GetMapping(value = "/customer/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Wallet> getByCustomerId(@PathVariable("customerId") String customerId ) {
+    public ResponseEntity<Wallet> getByCustomerId(@RequestHeader("Authorization") String token,
+                                                  @PathVariable("customerId") String customerId ) {
         return ResponseEntity.ok(walletService.findByCustomerId(customerId));
     }
 
